@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Seminda.CityInfo.API.Data;
 using System;
 using System.Collections.Generic;
 
@@ -9,11 +10,7 @@ namespace Seminda.CityInfo.API.Controllers
         [HttpGet("api/cities")]
         public JsonResult GetCities()
         {
-            return new JsonResult(new List<Object>
-            {
-                new {Id=1, Name="Melbourne"},
-                new {Id=2, Name="Sydney"}
-            });
+            return new JsonResult(CitiesDataStore.Current.Cities);
         }
     }
 }
