@@ -1,7 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Seminda.CityInfo.API.Data;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace Seminda.CityInfo.API.Controllers
@@ -9,16 +7,20 @@ namespace Seminda.CityInfo.API.Controllers
     public class CitiesController:Controller 
     {
         [HttpGet("api/cities")]
-        public JsonResult GetCities()
+        public IActionResult GetCities()
         {
-            return new JsonResult(CitiesDataStore.Current.Cities);
+            return Ok(CitiesDataStore.Current.Cities);
         }
-
-
+        
         [HttpGet("api/cities/{id}")]
-        public JsonResult GetCity(int id)
+        public IActionResult GetCity(int id)
         {
-            return new JsonResult(CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == id));
+            var city = CitiesDataStore.Current.Cities.FirstOrDefault(c => c.Id == id);
+            if (city == null)
+            {
+                return NotFound();
+            }
+            return Ok(city);
         }
     }
 }

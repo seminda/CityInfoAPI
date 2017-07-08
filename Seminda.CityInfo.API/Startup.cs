@@ -30,6 +30,7 @@ namespace Seminda.CityInfo.API
                 app.UseExceptionHandler();
             }
 
+            app.UseStatusCodePages();
             app.UseMvc();
         }
     }
